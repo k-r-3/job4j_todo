@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Список дел</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/todo/displayUndone',
+            dataType: 'json'
+        }).done(function (data) {
+            for (let task of (data)) {
+                $('#list').append('<input class="checkbox_check" type="checkbox" '
+                    +'onclick="makeDone('+task.id+')"> Завершить'
+                    + '<li id=' + "undone" + '>' + task.descr + " " + task.created + '</li>');
+            }
+        });
+    });
+
+    function makeDone(number) {
+        console.log(number);
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/todo/makeDone',
+            data: JSON.stringify({
+                    id: number
+                })
+        })
+    }
+
+    function showAll() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/todo/displayDone',
+            dataType: 'json'
+        }).done(function (data) {
+            if ($('#task_list').is(':checked')) {
+                for (const task of data) {
+                    $('#list').append('<li id=' + "done" + '>' + task.descr + " " + task.created + '</li>');
+                }
+            } else {
+                const list = document.getElementsByTagName('li');
+                for (const el of list) {
+                    console.log(el);
+                    if (el.id === 'done') {
+                        el.remove();
+                    }
+                }
+            }
+        });
+    }
+
+    function add() {
+        console.log('in add');
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/todo/addTask',
+            data: JSON.stringify({
+                descr: $('#task_desc').val()
+            })
+        })
+    }
+</script>
+
+<div class="d-flex justify-content-center">
+    <h1>Список дел</h1>
+</div>
+
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="task_desc"></label>
+            <textarea class="form-control" id="task_desc" rows="3" required placeholder="описание задачи"></textarea>
+            <button type="submit" class="btn btn-success" onclick="add()">Добавить задачу</button>
+        </div>
+        <div class="form-group">
+            <input class="checkbox_check" type="checkbox" id="task_list" onclick="showAll()">
+            <label for="task_list">показать все задачи</label>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <ul id="list">
+
+    </ul>
+</div>
+
