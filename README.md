@@ -2,7 +2,7 @@
 job4j_todo
 </h1>
 
-[![Build Status](https://app.travis-ci.com/k-r-3/job4j_cinema.svg?branch=master)](https://app.travis-ci.com/k-r-3/job4j_cinema)
+[![Build Status](https://app.travis-ci.com/k-r-3/job4j_todo.svg?branch=main)](https://app.travis-ci.com/k-r-3/job4j_todo)
 
 <h3>
 Description :
