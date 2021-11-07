@@ -3,7 +3,7 @@ package ru.job4j.tasks.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ru.job4j.tasks.models.Task;
-import ru.job4j.tasks.service.ShowUndoneTasks;
+import ru.job4j.tasks.service.TodoService;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ public class DisplayUndone extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        List<Task> tasks = ShowUndoneTasks.showAll();
+        List<Task> tasks = TodoService.getInstance().showAll();
         System.out.println(tasks);
         OutputStream out = resp.getOutputStream();
         String json = GSON.toJson(tasks);

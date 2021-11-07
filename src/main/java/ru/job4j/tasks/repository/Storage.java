@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import ru.job4j.tasks.models.Task;
 
 import java.io.Closeable;
-import java.util.Collection;
 import java.util.List;
 
 public class Storage implements Closeable, Store {
