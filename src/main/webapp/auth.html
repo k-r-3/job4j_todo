@@ -18,38 +18,43 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="app.js"></script>
+<!--    <script type="text/javascript" src="auth.js"></script>-->
     <script>
-        $(document).ready(function () {
-            load();
-        });
+        function registration() {
+            window.location.href = 'http://localhost:8080/todo/reg.html'
+        }
+
+        function auth() {
+            $.ajax( {
+                type: 'POST',
+                url: 'http://localhost:8080/todo/auth',
+                data: JSON.stringify({
+                    name: $('#login').val(),
+                    password: $('#password').val()
+                })
+            }).fail(function () {
+                alert('Ошибка!');
+            })
+        }
     </script>
-    <title>Список дел</title>
+    <title>Войти</title>
 </head>
 
 <div class="d-flex justify-content-center">
-    <h1>Список дел</h1>
+    <h1>Авторизация</h1>
 </div>
 
 <div class="container">
     <form>
         <div class="form-group">
-            <label for="task_desc"></label>
-            <textarea class="form-control" id="task_desc" rows="3" required
-                      placeholder="описание задачи"></textarea>
-            <button type="submit" class="btn btn-success" onClick="add()">Добавить задачу</button>
+            <label for="login"></label>
+            <input type="text" id="login" required
+            placeholder="логин пользователя">
+            <label for="password"></label>
+            <input type="password" id="password" required
+                   placeholder="пароль">
         </div>
-        <div class="form-group">
-            <input class="checkbox_check" type="checkbox" id="task_list" onClick="check()">
-            <label for="task_list">показать все задачи</label>
-        </div>
+        <button type="submit" class="btn btn-success" onClick="auth()">войти</button>
     </form>
+    <button type="submit" class="btn btn-success" onClick="registration()">зарегестрироваться</button>
 </div>
-
-<div class="container">
-    <ul id="listUndone">
-
-    </ul>
-</div>
-

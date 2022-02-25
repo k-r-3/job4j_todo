@@ -11,7 +11,7 @@ function load() {
         for (let task of (data)) {
             $('#listUndone').append('<input class="checkbox_check" type="checkbox" '
                 + 'onclick="makeDone(' + task.id + ')"> Завершить'
-                + '<li id=' + "undone" + '>' + task.descr + " " + task.created + '</li>');
+                + '<li id=' + "undone" + '>' + task.descr + " " + task.created + " " + task.user.name + '</li>');
         }
     });
 }
@@ -32,7 +32,7 @@ function showAll() {
     }).done(function (data) {
         $('#listUndone').after('<ul id=' + "listDone" + '></ul>');
         for (const task of data) {
-            $('#listDone').append('<li>' + task.descr + " " + task.created + '</li>');
+            $('#listDone').append('<li>' + task.descr + " " + task.created + " " + task.user.name + '</li>');
         }
     });
 }

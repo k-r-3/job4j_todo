@@ -1,6 +1,7 @@
 package ru.job4j.tasks.models;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 @Entity
@@ -12,6 +13,18 @@ public class Task {
     private String descr;
     private Timestamp created;
     private boolean done;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public static Task of(Task newTask, User user) {
+        Task task = new Task();
+        task.descr = newTask.getDescr();
+        task.created = newTask.getCreated();
+        task.user = user;
+        return task;
+    }
 
     public int getId() {
         return id;
