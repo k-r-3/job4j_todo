@@ -1,9 +1,12 @@
 package ru.job4j.tasks.service;
 
+import org.hibernate.exception.ConstraintViolationException;
 import ru.job4j.tasks.models.Task;
+import ru.job4j.tasks.models.User;
 import ru.job4j.tasks.repository.Storage;
 
 import java.util.List;
+import java.util.Optional;
 
 public class TodoService {
 
@@ -39,5 +42,19 @@ public class TodoService {
         Storage storage = Storage.instOf();
         rsl = storage.findDone();
         return rsl;
+    }
+
+    public void addUser(User user) {
+        Storage storage = Storage.instOf();
+        try {
+            storage.addUser(user);
+        } catch (ConstraintViolationException cve) {
+            throw cve;
+        }
+    }
+
+    public List<User> getUser(User user) {
+        Storage storage = Storage.instOf();
+        return storage.getUser(user);
     }
 }

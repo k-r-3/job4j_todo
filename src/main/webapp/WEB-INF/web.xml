@@ -9,7 +9,12 @@
          version="2.4">
 
   <display-name>Archetype Created Web Application</display-name>
-  
+
+<!--  <filter>-->
+<!--    <filter-name>AuthFilter</filter-name>-->
+<!--    <filter-class>ru.job4j.tasks.filter.AuthFilter</filter-class>-->
+<!--  </filter>-->
+
   <servlet>
     <servlet-name>DisplayUndone</servlet-name>
     <servlet-class>ru.job4j.tasks.controller.DisplayUndone</servlet-class>
@@ -26,6 +31,18 @@
     <servlet-name>Completive</servlet-name>
     <servlet-class>ru.job4j.tasks.controller.Completive</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AuthServlet</servlet-name>
+    <servlet-class>ru.job4j.tasks.controller.AuthServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>RegServlet</servlet-name>
+    <servlet-class>ru.job4j.tasks.controller.RegServlet</servlet-class>
+  </servlet>
+<!--  <filter-mapping>-->
+<!--    <filter-name>AuthFilter</filter-name>-->
+<!--    <url-pattern>/*</url-pattern>-->
+<!--  </filter-mapping>-->
 
   <servlet-mapping>
     <servlet-name>DisplayUndone</servlet-name>
@@ -42,5 +59,13 @@
   <servlet-mapping>
     <servlet-name>Completive</servlet-name>
     <url-pattern>/makeDone</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AuthServlet</servlet-name>
+    <url-pattern>/auth</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RegServlet</servlet-name>
+    <url-pattern>/reg</url-pattern>
   </servlet-mapping>
 </web-app>
