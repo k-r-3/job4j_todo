@@ -7,7 +7,7 @@ function load() {
         type: 'GET',
         url: 'http://localhost:8080/todo/displayUndone',
         dataType: 'json'
-    }).done(function (data) {
+    }).success(function (data) {
         for (let task of (data)) {
             $('#listUndone').append('<input class="checkbox_check" type="checkbox" '
                 + 'onclick="makeDone(' + task.id + ')"> Завершить'
@@ -63,4 +63,16 @@ function add() {
             descr: $('#task_desc').val()
         })
     })
+}
+
+function regUser() {
+    console.log('in reg');
+    $.ajax( {
+       type: 'POST',
+       url: 'http://localhost:8080/todo/reg',
+       data: JSON.stringify( {
+            name: $('#login').val(),
+           password: $('#password').val()
+       })
+    });
 }
