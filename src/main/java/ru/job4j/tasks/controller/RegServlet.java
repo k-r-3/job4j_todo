@@ -16,10 +16,6 @@ public class RegServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        ServletContext context = request.getServletContext();
-//        RequestDispatcher dispatcher = context
-//                .getRequestDispatcher("/auth.html");
-//        dispatcher.forward(request, response);
         response.sendRedirect("/todo/auth");
     }
 
